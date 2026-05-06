@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nuelvel — Web, AI & Marketing Solutions | Vipul Sharma</title>
+<meta name="description" content="Vipul Sharma — Web Development, AI Automation, Social Media Marketing & more. Helping businesses in India & globally grow with digital solutions.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #060608;
+  --bg2: #0c0c10;
+  --surface: #12121a;
+  --surface2: #18181f;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+  --accent: #C8FF00;
+  --accent-dim: rgba(200,255,0,0.12);
+  --accent-border: rgba(200,255,0,0.25);
+  --green: #00E676;
+  --blue: #4FC3F7;
+  --text: #EDEDED;
+  --text2: #A0A0B0;
+  --muted: #555560;
+  --font-display: 'Syne', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+  --radius: 18px;
+  --shadow: 0 32px 64px rgba(0,0,0,0.5);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-weight:300;overflow-x:hidden;cursor:none;line-height:1}
+
+/* ── CURSOR ── */
+.cursor,.cursor-ring{position:fixed;pointer-events:none;border-radius:50%;transform:translate(-50%,-50%);z-index:9999}
+.cursor{width:10px;height:10px;background:var(--accent);transition:width .15s,height .15s,background .15s}
+.cursor-ring{width:32px;height:32px;border:1.5px solid rgba(200,255,0,.35);z-index:9998;transition:left .06s,top .06s}
+.cursor.hovered{width:24px;height:24px;background:transparent;border:2px solid var(--accent)}
+
+/* ── NOISE ── */
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E");pointer-events:none;z-index:9990;opacity:.7}
+
+/* ── STICKY CTA BAR ── */
+.sticky-bar{
+  position:fixed;bottom:28px;left:50%;transform:translateX(-50%);
+  background:rgba(12,12,16,0.85);backdrop-filter:blur(24px);
+  border:1px solid var(--border2);border-radius:100px;
+  padding:10px 10px 10px 20px;
+  display:flex;align-items:center;gap:12px;
+  z-index:500;
+  box-shadow:0 8px 32px rgba(0,0,0,0.6);
+  opacity:0;transition:opacity .4s;
+}
+.sticky-bar.show{opacity:1}
+.sticky-bar span{font-size:14px;color:var(--text2)}
+.sticky-bar a{
+  background:var(--accent);color:#000;
+  padding:10px 22px;border-radius:100px;
+  font-size:14px;font-weight:600;text-decoration:none;
+  display:flex;align-items:center;gap:6px;
+  transition:transform .2s;
+  white-space:nowrap;
+}
+.sticky-bar a:hover{transform:scale(1.04)}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:22px 60px;
+  display:flex;justify-content:space-between;align-items:center;
+  transition:background .3s,border-color .3s,padding .3s;
+  border-bottom:1px solid transparent;
+}
+nav.scrolled{
+  background:rgba(6,6,8,.92);backdrop-filter:blur(24px);
+  border-color:var(--border);padding:16px 60px;
+}
+.nav-logo{font-family:var(--font-display);font-size:20px;font-weight:800;color:var(--text);text-decoration:none;letter-spacing:-0.5px}
+.nav-logo span{color:var(--accent)}
+.nav-links{display:flex;gap:36px;list-style:none;align-items:center}
+.nav-links a{color:var(--text2);text-decoration:none;font-size:13px;letter-spacing:.5px;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover{color:var(--text)}
+.nav-cta{background:var(--accent)!important;color:#000!important;padding:10px 22px!important;border-radius:100px;font-weight:600!important;text-transform:none!important;letter-spacing:0!important;font-size:14px!important}
+
+/* ── SECTIONS ── */
+section{padding:120px 60px}
+.section-eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:11px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--text2);margin-bottom:56px;
+}
+.section-eyebrow::before{content:'';width:32px;height:1px;background:var(--muted)}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;display:flex;flex-direction:column;
+  justify-content:flex-end;padding:0 60px 80px;
+  position:relative;overflow:hidden;
+}
+.hero-grid-bg{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(200,255,0,.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(200,255,0,.04) 1px,transparent 1px);
+  background-size:80px 80px;
+  mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 0%,transparent 100%);
+}
+.hero-glow{
+  position:absolute;top:-20%;right:-10%;
+  width:700px;height:700px;
+  background:radial-gradient(circle,rgba(200,255,0,.07) 0%,transparent 65%);
+  pointer-events:none;
+}
+.hero-available{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--accent-dim);border:1px solid var(--accent-border);
+  color:var(--accent);padding:7px 18px;border-radius:100px;
+  font-size:12px;letter-spacing:1px;text-transform:uppercase;
+  width:fit-content;margin-bottom:28px;
+}
+.hero-available::before{content:'';width:6px;height:6px;background:var(--accent);border-radius:50%;animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.hero h1{
+  font-family:var(--font-display);
+  font-size:clamp(52px,8vw,118px);
+  font-weight:800;line-height:.9;
+  letter-spacing:-4px;
+  margin-bottom:48px;max-width:1000px;
+}
+.hero h1 .outline{color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.2)}
+.hero h1 .hi{color:var(--accent)}
+.hero-bottom{display:flex;justify-content:space-between;align-items:flex-end;gap:40px}
+.hero-left p{max-width:400px;color:var(--text2);font-size:16px;line-height:1.75;margin-bottom:28px}
+.hero-left p strong{color:var(--text);font-weight:500}
+.hero-badges{display:flex;gap:10px;flex-wrap:wrap}
+.badge{
+  display:flex;align-items:center;gap:6px;
+  background:var(--surface);border:1px solid var(--border);
+  padding:7px 14px;border-radius:100px;font-size:12px;color:var(--text2);
+}
+.badge .dot{width:6px;height:6px;border-radius:50%}
+.dot-green{background:var(--green)}
+.dot-blue{background:var(--blue)}
+.dot-accent{background:var(--accent)}
+.hero-actions{display:flex;gap:12px;flex-shrink:0}
+.btn-primary{
+  background:var(--accent);color:#000;padding:16px 34px;
+  border-radius:100px;font-size:15px;font-weight:600;
+  text-decoration:none;display:inline-flex;align-items:center;gap:8px;
+  transition:transform .2s,box-shadow .2s;
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 20px 48px rgba(200,255,0,.28)}
+.btn-ghost{
+  border:1px solid var(--border2);color:var(--text);
+  padding:16px 34px;border-radius:100px;font-size:15px;
+  text-decoration:none;display:inline-flex;align-items:center;gap:8px;
+  transition:border-color .2s,background .2s;
+}
+.btn-ghost:hover{border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.04)}
+
+/* ── SOCIAL PROOF BAR ── */
+.proof-bar{
+  background:var(--surface);
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  padding:0 60px;
+  display:flex;align-items:center;gap:0;overflow:hidden;
+}
+.proof-item{
+  flex:1;padding:28px 0;display:flex;align-items:center;justify-content:center;
+  flex-direction:column;gap:4px;position:relative;
+}
+.proof-item+.proof-item::before{content:'';position:absolute;left:0;top:20%;height:60%;width:1px;background:var(--border)}
+.proof-num{font-family:var(--font-display);font-size:34px;font-weight:800;color:var(--accent);letter-spacing:-2px;line-height:1}
+.proof-label{font-size:12px;color:var(--text2);letter-spacing:.5px}
+
+/* ── MARQUEE ── */
+.marquee-strip{overflow:hidden;padding:18px 0;border-bottom:1px solid var(--border)}
+.marquee-track{display:flex;gap:50px;animation:marquee 22s linear infinite;white-space:nowrap}
+.marquee-track span{font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);flex-shrink:0}
+.marquee-track .star{color:var(--accent);font-size:16px}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ── ABOUT ── */
+.about-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:100px;align-items:start}
+.about-h{font-family:var(--font-display);font-size:clamp(36px,4vw,58px);font-weight:800;line-height:1.05;letter-spacing:-2px;margin-bottom:32px}
+.about-h span{color:var(--accent)}
+.about-body{color:var(--text2);font-size:16px;line-height:1.85;margin-bottom:20px}
+.process-list{margin-top:40px;display:flex;flex-direction:column;gap:0}
+.process-item{
+  display:flex;gap:20px;padding:20px 0;
+  border-bottom:1px solid var(--border);align-items:flex-start;
+}
+.process-item:last-child{border-bottom:none}
+.process-num{
+  font-family:var(--font-display);font-size:13px;font-weight:700;
+  color:var(--accent);width:28px;flex-shrink:0;padding-top:3px;
+}
+.process-content h4{font-size:15px;font-weight:600;margin-bottom:4px;letter-spacing:-.2px}
+.process-content p{font-size:13px;color:var(--text2);line-height:1.6}
+.about-visual{position:relative}
+.about-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:36px;position:relative;overflow:hidden;
+}
+.about-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--accent),transparent);
+}
+.about-card h3{font-family:var(--font-display);font-size:20px;font-weight:700;margin-bottom:24px;letter-spacing:-.5px}
+.tools-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.tool-chip{
+  background:rgba(255,255,255,.04);border:1px solid var(--border);
+  border-radius:10px;padding:10px 12px;text-align:center;
+  font-size:12px;color:var(--text2);letter-spacing:.2px;
+  transition:border-color .2s,color .2s;
+}
+.tool-chip:hover{border-color:var(--accent-border);color:var(--text)}
+
+/* ── SERVICES ── */
+.services-intro{
+  display:flex;justify-content:space-between;align-items:flex-end;
+  margin-bottom:56px;gap:40px;
+}
+.services-h{font-family:var(--font-display);font-size:clamp(36px,4vw,58px);font-weight:800;letter-spacing:-2px;line-height:1.05}
+.services-h span{color:var(--accent)}
+.services-sub{max-width:360px;color:var(--text2);font-size:15px;line-height:1.7}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border-radius:24px;overflow:hidden;border:1px solid var(--border)}
+.svc{
+  background:var(--surface);padding:44px 36px;
+  position:relative;overflow:hidden;
+  transition:background .3s;
+}
+.svc::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:var(--accent);transform:scaleX(0);transform-origin:left;
+  transition:transform .4s;
+}
+.svc:hover{background:var(--surface2)}
+.svc:hover::after{transform:scaleX(1)}
+.svc-icon{
+  width:50px;height:50px;border-radius:14px;
+  background:rgba(255,255,255,.04);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;margin-bottom:24px;
+}
+.svc h3{font-family:var(--font-display);font-size:20px;font-weight:700;margin-bottom:12px;letter-spacing:-.5px}
+.svc p{color:var(--text2);font-size:13.5px;line-height:1.75;margin-bottom:20px}
+.svc-tags{display:flex;flex-wrap:wrap;gap:7px}
+.svc-tag{
+  background:rgba(255,255,255,.04);border:1px solid var(--border);
+  color:var(--muted);padding:3px 10px;border-radius:100px;font-size:11px;
+}
+.svc-price{
+  position:absolute;top:20px;right:20px;
+  font-size:11px;color:var(--accent);
+  background:var(--accent-dim);border:1px solid var(--accent-border);
+  padding:3px 10px;border-radius:100px;letter-spacing:.5px;
+}
+
+/* ── WHY ME ── */
+.why-section{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border)}
+.why-card{
+  background:var(--surface);padding:36px 28px;
+  transition:background .3s;
+}
+.why-card:hover{background:var(--surface2)}
+.why-icon{font-size:28px;margin-bottom:16px}
+.why-card h4{font-family:var(--font-display);font-size:16px;font-weight:700;margin-bottom:10px;letter-spacing:-.3px}
+.why-card p{color:var(--text2);font-size:13px;line-height:1.7}
+
+/* ── PORTFOLIO ── */
+.portfolio-filter{display:flex;gap:8px;margin-bottom:40px;flex-wrap:wrap}
+.filter-btn{
+  background:var(--surface);border:1px solid var(--border);
+  color:var(--text2);padding:8px 18px;border-radius:100px;
+  font-size:12px;letter-spacing:.5px;text-transform:uppercase;
+  cursor:none;transition:all .2s;font-family:var(--font-body);
+}
+.filter-btn.active,.filter-btn:hover{background:var(--accent-dim);border-color:var(--accent-border);color:var(--accent)}
+.portfolio-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.pcard{
+  border:1px solid var(--border);border-radius:var(--radius);
+  overflow:hidden;background:var(--surface);
+  transition:transform .3s,border-color .3s;
+  text-decoration:none;color:var(--text);display:block;position:relative;
+}
+.pcard:hover{transform:translateY(-6px);border-color:var(--accent-border)}
+.pcard-thumb{
+  width:100%;aspect-ratio:16/9;
+  background:linear-gradient(135deg,var(--surface2) 0%,#1e1e28 100%);
+  display:flex;align-items:center;justify-content:center;
+  flex-direction:column;gap:12px;position:relative;overflow:hidden;
+}
+.pcard-thumb::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 30% 50%,rgba(200,255,0,.06) 0%,transparent 60%);
+}
+.pcard-domain{font-family:var(--font-display);font-size:15px;font-weight:700;color:rgba(255,255,255,.35);letter-spacing:-.3px}
+.pcard-emoji{font-size:32px;opacity:.5}
+.pcard-info{padding:22px 24px}
+.pcard-type{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
+.pcard-name{font-family:var(--font-display);font-size:18px;font-weight:700;letter-spacing:-.4px;margin-bottom:6px}
+.pcard-desc{color:var(--text2);font-size:12.5px;line-height:1.6}
+.pcard-arrow{
+  position:absolute;top:16px;right:16px;
+  width:34px;height:34px;border-radius:50%;
+  background:var(--accent-dim);border:1px solid var(--accent-border);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--accent);font-size:14px;
+  opacity:0;transform:translateY(4px);
+  transition:opacity .2s,transform .2s;
+}
+.pcard:hover .pcard-arrow{opacity:1;transform:translateY(0)}
+
+/* ── TESTIMONIALS ── */
+.testi-section{background:var(--bg2);border-top:1px solid var(--border)}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.testi-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:32px 28px;
+  transition:border-color .3s;
+}
+.testi-card:hover{border-color:var(--border2)}
+.testi-stars{color:var(--accent);font-size:14px;letter-spacing:2px;margin-bottom:16px}
+.testi-text{color:var(--text2);font-size:14px;line-height:1.8;margin-bottom:24px;font-style:italic}
+.testi-author{display:flex;align-items:center;gap:12px}
+.testi-avatar{
+  width:40px;height:40px;border-radius:50%;
+  background:linear-gradient(135deg,var(--accent-dim),rgba(79,195,247,.15));
+  border:1px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;flex-shrink:0;
+}
+.testi-name{font-size:14px;font-weight:600}
+.testi-role{font-size:12px;color:var(--text2)}
+
+/* ── PRICING ── */
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:1000px;margin:0 auto}
+.price-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:36px 28px;
+  transition:transform .3s,border-color .3s;position:relative;overflow:hidden;
+}
+.price-card.popular{border-color:var(--accent-border);background:var(--surface2)}
+.price-card.popular::before{
+  content:'Most Popular';position:absolute;top:0;right:24px;
+  background:var(--accent);color:#000;font-size:10px;font-weight:700;
+  padding:5px 12px;border-radius:0 0 8px 8px;letter-spacing:1px;text-transform:uppercase;
+}
+.price-card:hover{transform:translateY(-4px)}
+.price-tier{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text2);margin-bottom:12px}
+.price-amount{font-family:var(--font-display);font-size:42px;font-weight:800;letter-spacing:-2px;color:var(--text);line-height:1;margin-bottom:4px}
+.price-amount span{font-size:20px;color:var(--text2);font-weight:400}
+.price-note{font-size:12px;color:var(--text2);margin-bottom:24px}
+.price-features{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:32px}
+.price-features li{font-size:13.5px;color:var(--text2);display:flex;gap:10px;align-items:flex-start}
+.price-features li::before{content:'✓';color:var(--accent);font-weight:700;flex-shrink:0}
+.price-btn{
+  width:100%;text-align:center;padding:14px;border-radius:100px;
+  font-size:14px;font-weight:600;text-decoration:none;display:block;
+  transition:transform .2s,box-shadow .2s;
+}
+.price-btn-primary{background:var(--accent);color:#000}
+.price-btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 32px rgba(200,255,0,.22)}
+.price-btn-ghost{background:transparent;color:var(--text);border:1px solid var(--border2)}
+.price-btn-ghost:hover{border-color:var(--accent-border);color:var(--accent)}
+
+/* ── FAQ ── */
+.faq-section{background:var(--bg2);border-top:1px solid var(--border)}
+.faq-layout{display:grid;grid-template-columns:1fr 1.5fr;gap:80px;align-items:start}
+.faq-left h2{font-family:var(--font-display);font-size:clamp(36px,4vw,52px);font-weight:800;letter-spacing:-2px;line-height:1.05;margin-bottom:16px}
+.faq-left h2 span{color:var(--accent)}
+.faq-left p{color:var(--text2);font-size:15px;line-height:1.7;margin-bottom:28px}
+.faq-cta{display:inline-flex;align-items:center;gap:8px;color:var(--accent);font-size:14px;font-weight:500;text-decoration:none}
+.faq-cta:hover{text-decoration:underline}
+.faq-list{display:flex;flex-direction:column;gap:0}
+.faq-item{border-bottom:1px solid var(--border);overflow:hidden}
+.faq-q{
+  width:100%;background:none;border:none;color:var(--text);
+  font-family:var(--font-body);font-size:15px;font-weight:500;
+  padding:22px 0;display:flex;justify-content:space-between;align-items:center;
+  cursor:none;text-align:left;gap:16px;
+}
+.faq-chevron{color:var(--text2);font-size:18px;transition:transform .3s;flex-shrink:0}
+.faq-item.open .faq-chevron{transform:rotate(45deg);color:var(--accent)}
+.faq-a{font-size:14px;color:var(--text2);line-height:1.75;max-height:0;overflow:hidden;transition:max-height .35s ease,padding .3s}
+.faq-item.open .faq-a{max-height:200px;padding-bottom:20px}
+
+/* ── CONTACT ── */
+.contact-layout{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.contact-h{font-family:var(--font-display);font-size:clamp(40px,5vw,68px);font-weight:800;letter-spacing:-3px;line-height:1;margin-bottom:20px}
+.contact-h span{color:var(--accent)}
+.contact-sub{color:var(--text2);font-size:16px;line-height:1.8;margin-bottom:36px}
+.contact-methods{display:flex;flex-direction:column;gap:12px}
+.cmethod{
+  display:flex;align-items:center;gap:14px;
+  padding:18px 20px;border:1px solid var(--border);
+  border-radius:14px;background:var(--surface);
+  text-decoration:none;color:var(--text);
+  transition:border-color .2s,transform .2s;
+}
+.cmethod:hover{border-color:var(--accent-border);transform:translateX(4px)}
+.cmethod-icon{width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.cmethod-wa{background:rgba(37,211,102,.12)}
+.cmethod-em{background:var(--accent-dim)}
+.cmethod-label{font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:2px}
+.cmethod-val{font-size:14px;font-weight:500}
+.form-grid{display:flex;flex-direction:column;gap:14px}
+.form-row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fg{display:flex;flex-direction:column;gap:7px}
+.fg label{font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:.8px}
+.fg input,.fg textarea,.fg select{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:12px;padding:13px 16px;
+  color:var(--text);font-family:var(--font-body);font-size:14px;font-weight:300;
+  outline:none;transition:border-color .2s;-webkit-appearance:none;
+}
+.fg select option{background:#1a1a24}
+.fg input:focus,.fg textarea:focus,.fg select:focus{border-color:var(--accent)}
+.fg textarea{height:110px;resize:none}
+.submit-btn{
+  background:var(--accent);color:#000;border:none;
+  padding:16px;border-radius:12px;
+  font-family:var(--font-body);font-size:15px;font-weight:700;
+  cursor:none;transition:transform .2s,box-shadow .2s;margin-top:4px;
+  width:100%;
+}
+.submit-btn:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(200,255,0,.22)}
+
+/* ── FOOTER ── */
+footer{
+  border-top:1px solid var(--border);
+  padding:48px 60px 36px;
+}
+.footer-top{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:60px;margin-bottom:48px}
+.footer-brand p{color:var(--text2);font-size:14px;line-height:1.75;margin-top:12px;max-width:280px}
+.footer-logo{font-family:var(--font-display);font-size:22px;font-weight:800;color:var(--text);text-decoration:none;letter-spacing:-.5px}
+.footer-logo span{color:var(--accent)}
+.footer-col h5{font-family:var(--font-display);font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text2);margin-bottom:16px}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.footer-col ul a{color:var(--muted);text-decoration:none;font-size:14px;transition:color .2s}
+.footer-col ul a:hover{color:var(--text)}
+.footer-bottom{
+  display:flex;justify-content:space-between;align-items:center;
+  padding-top:28px;border-top:1px solid var(--border);
+}
+.footer-bottom p{font-size:13px;color:var(--muted)}
+.footer-socials{display:flex;gap:12px}
+.social-link{
+  width:36px;height:36px;border-radius:50%;
+  border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--text2);text-decoration:none;font-size:15px;
+  transition:border-color .2s,color .2s;
+}
+.social-link:hover{border-color:var(--accent-border);color:var(--accent)}
+
+/* ── UTILS ── */
+.fade-up{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+.delay-1{transition-delay:.1s}
+.delay-2{transition-delay:.2s}
+.delay-3{transition-delay:.3s}
+
+/* ── MOBILE ── */
+@media(max-width:900px){
+  nav{padding:18px 24px}
+  .nav-links{display:none}
+  .hero{padding:0 24px 60px}
+  section{padding:72px 24px}
+  .hero h1{letter-spacing:-2px}
+  .hero-bottom{flex-direction:column;align-items:flex-start}
+  .about-grid,.faq-layout,.contact-layout{grid-template-columns:1fr;gap:48px}
+  .services-grid,.why-grid,.testi-grid,.pricing-grid{grid-template-columns:1fr}
+  .portfolio-grid{grid-template-columns:1fr}
+  .form-row2{grid-template-columns:1fr}
+  .proof-bar{flex-wrap:wrap;padding:0 24px}
+  .proof-item{flex:1 1 45%}
+  .services-intro{flex-direction:column;align-items:flex-start}
+  .footer-top{grid-template-columns:1fr}
+  .footer-bottom{flex-direction:column;gap:16px}
+  .sticky-bar{width:calc(100% - 32px);bottom:16px;justify-content:space-between}
+  footer{padding:48px 24px 32px}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- STICKY CTA -->
+<div class="sticky-bar" id="stickyBar">
+  <span>Ready to grow your business?</span>
+  <a href="https://wa.me/918114405289" target="_blank">💬 Let's Talk</a>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">Nuel<span>vel</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#contact" class="nav-cta">Start a Project</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+
+  <div class="hero-available">🟢 Available for new projects</div>
+
+  <h1 class="fade-up">
+    We Build<br>
+    <span class="outline">Digital</span><br>
+    <span class="hi">Results.</span>
+  </h1>
+
+  <div class="hero-bottom">
+    <div class="hero-left fade-up delay-1">
+      <p>
+        <strong>Vipul Sharma</strong> — Founder of Nuelvel. Helping businesses
+        across <strong>India & globally</strong> win with web development,
+        AI automation, and performance marketing.
+      </p>
+      <div class="hero-badges">
+        <div class="badge"><div class="dot dot-green"></div> India & International</div>
+        <div class="badge"><div class="dot dot-blue"></div> 13+ Projects Delivered</div>
+        <div class="badge"><div class="dot dot-accent"></div> AI-Powered Solutions</div>
+      </div>
+    </div>
+    <div class="hero-actions fade-up delay-2">
+      <a href="#work" class="btn-primary">See My Work ↓</a>
+      <a href="https://wa.me/918114405289" target="_blank" class="btn-ghost">💬 WhatsApp Me</a>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF BAR -->
+<div class="proof-bar">
+  <div class="proof-item fade-up">
+    <div class="proof-num">13+</div>
+    <div class="proof-label">Projects Delivered</div>
+  </div>
+  <div class="proof-item fade-up delay-1">
+    <div class="proof-num">5+</div>
+    <div class="proof-label">Countries Served</div>
+  </div>
+  <div class="proof-item fade-up delay-2">
+    <div class="proof-num">100%</div>
+    <div class="proof-label">Client Satisfaction</div>
+  </div>
+  <div class="proof-item fade-up delay-3">
+    <div class="proof-num">3x</div>
+    <div class="proof-label">Avg. ROI for Clients</div>
+  </div>
+</div>
+
+<!-- MARQUEE -->
+<div class="marquee-strip">
+  <div class="marquee-track">
+    <span>Web Development</span><span class="star">✦</span>
+    <span>AI Automation</span><span class="star">✦</span>
+    <span>Social Media Marketing</span><span class="star">✦</span>
+    <span>WhatsApp Bots</span><span class="star">✦</span>
+    <span>SEO Strategy</span><span class="star">✦</span>
+    <span>Lead Generation</span><span class="star">✦</span>
+    <span>E-commerce</span><span class="star">✦</span>
+    <span>Chatbot Development</span><span class="star">✦</span>
+    <span>Email Marketing</span><span class="star">✦</span>
+    <span>Web Development</span><span class="star">✦</span>
+    <span>AI Automation</span><span class="star">✦</span>
+    <span>Social Media Marketing</span><span class="star">✦</span>
+    <span>WhatsApp Bots</span><span class="star">✦</span>
+    <span>SEO Strategy</span><span class="star">✦</span>
+    <span>Lead Generation</span><span class="star">✦</span>
+    <span>E-commerce</span><span class="star">✦</span>
+    <span>Chatbot Development</span><span class="star">✦</span>
+    <span>Email Marketing</span><span class="star">✦</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-eyebrow">About Me</div>
+  <div class="about-grid">
+    <div class="fade-up">
+      <h2 class="about-h">Your full-stack <span>digital partner</span> — not just a freelancer.</h2>
+      <p class="about-body">I'm Vipul Sharma, founder of Nuelvel. I've worked with businesses from Ireland 🇮🇪 to India 🇮🇳 — from local plumbing companies to fintech platforms — delivering digital solutions that actually move the needle.</p>
+      <p class="about-body">I don't just build websites. I think about your business goals first, then use technology to achieve them.</p>
+      <div class="process-list">
+        <div class="process-item">
+          <div class="process-num">01</div>
+          <div class="process-content">
+            <h4>Discovery & Strategy</h4>
+            <p>Understand your goals, audience, and competition before touching any code.</p>
+          </div>
+        </div>
+        <div class="process-item">
+          <div class="process-num">02</div>
+          <div class="process-content">
+            <h4>Design & Build</h4>
+            <p>Fast, conversion-focused execution — no bloat, no delays.</p>
+          </div>
+        </div>
+        <div class="process-item">
+          <div class="process-num">03</div>
+          <div class="process-content">
+            <h4>Launch & Grow</h4>
+            <p>Go live with confidence, then optimize based on real data.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="about-visual fade-up delay-1">
+      <div class="about-card">
+        <h3>Tools & Technologies</h3>
+        <div class="tools-grid">
+          <div class="tool-chip">WordPress</div>
+          <div class="tool-chip">Next.js</div>
+          <div class="tool-chip">React</div>
+          <div class="tool-chip">Shopify</div>
+          <div class="tool-chip">WooCommerce</div>
+          <div class="tool-chip">Elementor</div>
+          <div class="tool-chip">n8n</div>
+          <div class="tool-chip">Make.com</div>
+          <div class="tool-chip">OpenAI API</div>
+          <div class="tool-chip">Meta Ads</div>
+          <div class="tool-chip">Google Ads</div>
+          <div class="tool-chip">WhatsApp API</div>
+          <div class="tool-chip">Mailchimp</div>
+          <div class="tool-chip">Ahrefs</div>
+          <div class="tool-chip">Figma</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" style="background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <div class="section-eyebrow">What I Offer</div>
+  <div class="services-intro">
+    <h2 class="services-h">Six services.<br><span>One partner.</span></h2>
+    <p class="services-sub">Everything your business needs to build a strong digital presence and grow — under one roof.</p>
+  </div>
+  <div class="services-grid fade-up">
+
+    <div class="svc">
+      <div class="svc-price">Core</div>
+      <div class="svc-icon">🌐</div>
+      <h3>Web Development</h3>
+      <p>Custom websites and web apps built for speed, SEO, and conversions. From landing pages to full platforms.</p>
+      <div class="svc-tags">
+        <span class="svc-tag">WordPress</span><span class="svc-tag">Next.js</span>
+        <span class="svc-tag">E-commerce</span><span class="svc-tag">Custom CMS</span>
+      </div>
+    </div>
+
+    <div class="svc">
+      <div class="svc-price">Core</div>
+      <div class="svc-icon">🤖</div>
+      <h3>AI Automation</h3>
+      <p>Save 20+ hours/week with intelligent workflows — lead routing, data processing, report generation on autopilot.</p>
+      <div class="svc-tags">
+        <span class="svc-tag">n8n</span><span class="svc-tag">Make.com</span>
+        <span class="svc-tag">OpenAI</span><span class="svc-tag">Zapier</span>
+      </div>
+    </div>
+
+    <div class="svc">
+      <div class="svc-price">Core</div>
+      <div class="svc-icon">📣</div>
+      <h3>Social Media Marketing</h3>
+      <p>Consistent, on-brand content and paid ad campaigns that build your audience and drive real business results.</p>
+      <div class="svc-tags">
+        <span class="svc-tag">Meta Ads</span><span class="svc-tag">Instagram</span>
+        <span class="svc-tag">LinkedIn</span><span class="svc-tag">Analytics</span>
+      </div>
+    </div>
+
+    <div class="svc">
+      <div class="svc-icon">💬</div>
+      <h3>WhatsApp & Chatbot</h3>
+      <p>Turn your WhatsApp into a 24/7 sales & support machine. Custom chatbots that qualify leads while you sleep.</p>
+      <div class="svc-tags">
+        <span class="svc-tag">WhatsApp API</span><span class="svc-tag">Chatbot</span>
+        <span class="svc-tag">CRM Integration</span><span class="svc-tag">Auto-reply</span>
+      </div>
+    </div>
+
+    <div class="svc">
+      <div class="svc-icon">🔍</div>
+      <h3>SEO & Content Strategy</h3>
+      <p>Rank higher on Google and attract organic traffic that converts. Technical SEO, content planning, and link building.</p>
+      <div class="svc-tags">
+        <span class="svc-tag">On-page SEO</span><span class="svc-tag">Technical SEO</span>
+        <span class="svc-tag">Content</span><span class="svc-tag">Ahrefs</span>
+      </div>
+    </div>
+
+    <div class="svc">
+      <div class="svc-icon">📧</div>
+      <h3>Email Marketing & CRM</h3>
+      <p>Automated email sequences, newsletters, and CRM setup that nurture leads and keep customers coming back.</p>
+      <div class="svc-tags">
+        <span class="svc-tag">Mailchimp</span><span class="svc-tag">ActiveCampaign</span>
+        <span class="svc-tag">Sequences</span><span class="svc-tag">Segmentation</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- WHY ME -->
+<section class="why-section">
+  <div class="section-eyebrow">Why Choose Nuelvel</div>
+  <div class="why-grid fade-up">
+    <div class="why-card">
+      <div class="why-icon">⚡</div>
+      <h4>Fast Delivery</h4>
+      <p>Most projects delivered in 7–14 days. No endless delays or excuses.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">🌍</div>
+      <h4>Global Experience</h4>
+      <p>Worked with clients from Ireland, India, Asia, and beyond — I understand different markets.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">📈</div>
+      <h4>Results First</h4>
+      <p>Every decision is tied to your business goal — not just making things look pretty.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">🤝</div>
+      <h4>Single Point of Contact</h4>
+      <p>You talk to me directly. No middlemen, no account managers, no confusion.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="work">
+  <div class="section-eyebrow">Selected Work</div>
+  <div class="portfolio-filter">
+    <button class="filter-btn active" onclick="filterProjects('all',this)">All</button>
+    <button class="filter-btn" onclick="filterProjects('web',this)">Web Dev</button>
+    <button class="filter-btn" onclick="filterProjects('intl',this)">International</button>
+    <button class="filter-btn" onclick="filterProjects('ecom',this)">E-commerce</button>
+  </div>
+  <div class="portfolio-grid" id="projectGrid">
+
+    <a href="https://www.materializeitsolutions.com/" target="_blank" class="pcard fade-up" data-cat="web">
+      <div class="pcard-thumb"><div class="pcard-emoji">💻</div><div class="pcard-domain">materializeitsolutions.com</div></div>
+      <div class="pcard-info">
+        <div class="pcard-type">Software Company</div>
+        <div class="pcard-name">Materialize IT Solutions</div>
+        <div class="pcard-desc">Full corporate website for a leading software development company with service showcases and lead capture.</div>
+      </div>
+      <div class="pcard-arrow">↗</div>
+    </a>
+
+    <a href="https://www.mrtechcoder.com/" target="_blank" class="pcard fade-up delay-1" data-cat="web">
+      <div class="pcard-thumb"><div class="pcard-emoji">👨‍💻</div><div class="pcard-domain">mrtechcoder.com</div></div>
+      <div class="pcard-info">
+        <div class="pcard-type">Tech / Personal Brand</div>
+        <div class="pcard-name">MrTechCoder</div>
+        <div class="pcard-desc">Developer personal brand website with portfolio showcase and blog integration.</div>
+      </div>
+      <div class="pcard-arrow">↗</div>
+    </a>
+
+    <a href="https://ohp.ie/" target="_blank" class="pcard fade-up" data-cat="intl web">
+      <div class="pcard-thumb"><div class="pcard-emoji">🇮🇪</div><div class="pcard-domain">ohp.ie</div></div>
+      <div class="pcard-info">
+        <div class="pcard-type">Service Business — Ireland</div>
+        <div class="pcard-name">OHP Plumbing & Heating</div>
+        <div class="pcard-desc">Local service website for an Irish boiler & plumbing company with SEO-optimized pages for Meath and Kildare.</div>
+      </div>
+      <div class="pcard-arrow">↗</div>
+    </a>
+
+    <a href="https://superskips.ie/" target="_blank" class="pcard fade-up delay-1" data-cat="intl ecom">
+      <div class="pcard-thumb"><div class="pcard-emoji">🗑️</div><div class="pcard-domain">superskips.ie</div></div>
+      <div class="pcard-info">
+        <div class="pcard-type">Service / Booking — Ireland</div>
+        <div class="pcard-name">Super Skips</div>
+        <div class="pcard-desc">Waste management website with online booking flow and service management for Irish market.</div>
+      </div>
+      <div class="pcard-arrow">↗</div>
+    </a>
+
+    <a href="https://mofintec.com/" target="_blank" class="pcard fade-up" data-cat="web intl">
+      <div class="pcard-thumb"><div class="pcard-emoji">💳</div><div class="pcard-domain">mofintec.com</div></div>
+      <div class="pcard-info">
+        <div class="pcard-type">Fintech Platform</div>
+        <div class="pcard-name">Mofintec</div>
+        <div class="pcard-desc">Modern fintech platform with trust-building design and conversion-optimized pages.</div>
+      </div>
+      <div class="pcard-arrow">↗</div>
+    </a>
+
+    <a href="https://www.whitelotuscorporation.com/" target="_blank" class="pcard fade-up delay-1" data-cat="web">
+      <div class="pcard-thumb"><div class="pcard-emoji">🏢</div><div class="pcard-domain">whitelotuscorporation.com</div></div>
+      <div class="pcard-info">
+        <div class="pcard-type">Corporate</div>
+        <div class="pcard-name">White Lotus Corporation</div>
+        <div class="pcard-desc">Corporate website with professional brand identity and lead capture system.</div>
+      </div>
+      <div class="pcard-arrow">↗</div>
+    </a>
+
+    <a href="https://www.rbdbags.com/" target="_blank" class="pcard fade-up" data-cat="ecom web">
+      <div class="pcard-thumb"><div class="pcard-emoji">👜</div><div class="pcard-domain">rbdbags.com</div></div>
+      <div class="pcard-info">
+        <div class="pcard-type">E-commerce</div>
+        <div class="pcard-name">RBD Bags</div>
+        <div class="pcard-desc">E-commerce store for bags & accessories brand with smooth shopping experience.</div>
+      </div>
+      <div class="pcard-arrow">↗</div>
+    </a>
+
+    <a href="https://www.asiapacificceramic.com" target="_blank" class="pcard fade-up delay-1" data-cat="web intl">
+      <div class="pcard-thumb"><div class="pcard-emoji">🏺</div><div class="pcard-domain">asiapacificceramic.com</div></div>
+      <div class="pcard-info">
+        <div class="pcard-type">B2B Manufacturing</div>
+        <div class="pcard-name">Asia Pacific Ceramic</div>
+        <div class="pcard-desc">B2B manufacturer site targeting Asia Pacific markets with product catalog and inquiry system.</div>
+      </div>
+      <div class="pcard-arrow">↗</div>
+    </a>
+
+    <a href="https://nettyfy.com/" target="_blank" class="pcard fade-up" data-cat="web">
+      <div class="pcard-thumb"><div class="pcard-emoji">🚀</div><div class="pcard-domain">nettyfy.com</div></div>
+      <div class="pcard-info">
+        <div class="pcard-type">Tech Startup</div>
+        <div class="pcard-name">Nettyfy</div>
+        <div class="pcard-desc">Startup website with modern design and conversion-optimized landing pages.</div>
+      </div>
+      <div class="pcard-arrow">↗</div>
+    </a>
+
+    <a href="https://greenharbour.ie/" target="_blank" class="pcard fade-up delay-1" data-cat="intl web">
+      <div class="pcard-thumb"><div class="pcard-emoji">🌿</div><div class="pcard-domain">greenharbour.ie</div></div>
+      <div class="pcard-info">
+        <div class="pcard-type">Business — Ireland</div>
+        <div class="pcard-name">Green Harbour</div>
+        <div class="pcard-desc">Clean, professional Irish business website optimized for local search and conversions.</div>
+      </div>
+      <div class="pcard-arrow">↗</div>
+    </a>
+
+    <a href="https://lnwoodpellets.com/" target="_blank" class="pcard fade-up" data-cat="intl ecom">
+      <div class="pcard-thumb"><div class="pcard-emoji">🪵</div><div class="pcard-domain">lnwoodpellets.com</div></div>
+      <div class="pcard-info">
+        <div class="pcard-type">E-commerce — International</div>
+        <div class="pcard-name">LN Wood Pellets</div>
+        <div class="pcard-desc">Wood fuel e-commerce site with product catalog and bulk order inquiry flow.</div>
+      </div>
+      <div class="pcard-arrow">↗</div>
+    </a>
+
+    <a href="https://www.digitalseoagencies.com/" target="_blank" class="pcard fade-up delay-1" data-cat="web">
+      <div class="pcard-thumb"><div class="pcard-emoji">🔍</div><div class="pcard-domain">digitalseoagencies.com</div></div>
+      <div class="pcard-info">
+        <div class="pcard-type">SEO / Directory</div>
+        <div class="pcard-name">Digital SEO Agencies</div>
+        <div class="pcard-desc">SEO agency directory platform with custom filtering and listing management.</div>
+      </div>
+      <div class="pcard-arrow">↗</div>
+    </a>
+
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testi-section">
+  <div class="section-eyebrow">Client Words</div>
+  <div class="testi-grid">
+    <div class="testi-card fade-up">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"Vipul delivered our website faster than expected and it looks amazing. Our leads have increased significantly since launch. Highly professional."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">🇮🇪</div>
+        <div>
+          <div class="testi-name">Irish Client</div>
+          <div class="testi-role">Service Business, Ireland</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card fade-up delay-1">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"The AI automation he built saves us literally hours every day. Our team focuses on selling now instead of data entry. Worth every rupee."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">🇮🇳</div>
+        <div>
+          <div class="testi-name">India Business Owner</div>
+          <div class="testi-role">E-commerce, India</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card fade-up delay-2">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"Very responsive, understands what clients need, and delivers quality work. Will definitely be working with Nuelvel again on our next project."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">🌏</div>
+        <div>
+          <div class="testi-name">International Client</div>
+          <div class="testi-role">Manufacturing, Asia Pacific</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="section-eyebrow">Investment</div>
+  <h2 style="font-family:var(--font-display);font-size:clamp(36px,4vw,52px);font-weight:800;letter-spacing:-2px;text-align:center;margin-bottom:12px">Transparent <span style="color:var(--accent)">Pricing</span></h2>
+  <p style="text-align:center;color:var(--text2);font-size:15px;margin-bottom:56px">No surprises. Pick what fits your stage.</p>
+  <div class="pricing-grid fade-up">
+    <div class="price-card">
+      <div class="price-tier">Starter</div>
+      <div class="price-amount">₹15K<span>+</span></div>
+      <div class="price-note">One-time · Web projects</div>
+      <ul class="price-features">
+        <li>Professional website (5 pages)</li>
+        <li>Mobile responsive design</li>
+        <li>Basic SEO setup</li>
+        <li>Contact form + WhatsApp button</li>
+        <li>2 weeks delivery</li>
+        <li>1 month free support</li>
+      </ul>
+      <a href="https://wa.me/918114405289" target="_blank" class="price-btn price-btn-ghost">Get Started →</a>
+    </div>
+    <div class="price-card popular">
+      <div class="price-tier">Growth</div>
+      <div class="price-amount">₹35K<span>+</span></div>
+      <div class="price-note">One-time · Full digital setup</div>
+      <ul class="price-features">
+        <li>Custom website (10+ pages)</li>
+        <li>SEO + Content strategy</li>
+        <li>Social media setup (3 platforms)</li>
+        <li>WhatsApp automation bot</li>
+        <li>Google Analytics + Pixel</li>
+        <li>3 months priority support</li>
+      </ul>
+      <a href="https://wa.me/918114405289" target="_blank" class="price-btn price-btn-primary">Most Popular →</a>
+    </div>
+    <div class="price-card">
+      <div class="price-tier">Scale</div>
+      <div class="price-amount">Custom</div>
+      <div class="price-note">Monthly retainer · Ongoing growth</div>
+      <ul class="price-features">
+        <li>Everything in Growth</li>
+        <li>AI automation workflows</li>
+        <li>Paid ad campaigns (Meta/Google)</li>
+        <li>Monthly performance reports</li>
+        <li>Email marketing sequences</li>
+        <li>Dedicated availability</li>
+      </ul>
+      <a href="mailto:nuelevel007@gmail.com" class="price-btn price-btn-ghost">Let's Discuss →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="section-eyebrow">FAQ</div>
+  <div class="faq-layout">
+    <div class="faq-left fade-up">
+      <h2>Got <span>questions?</span></h2>
+      <p>Here are the most common things clients ask before starting a project. Didn't find your answer?</p>
+      <a href="https://wa.me/918114405289" class="faq-cta" target="_blank">Ask me directly on WhatsApp →</a>
+    </div>
+    <div class="faq-list fade-up delay-1">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          How long does a website take to build?
+          <span class="faq-chevron">+</span>
+        </button>
+        <div class="faq-a">Most websites are delivered within 7–14 days depending on complexity. I give you a clear timeline before starting — no vague "few weeks" estimates.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Do you work with international clients?
+          <span class="faq-chevron">+</span>
+        </button>
+        <div class="faq-a">Yes — I've worked with clients from Ireland, Asia Pacific, and beyond. I'm comfortable with different time zones and communicate professionally in English.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          What if I need changes after delivery?
+          <span class="faq-chevron">+</span>
+        </button>
+        <div class="faq-a">All packages include free support for at least 1 month post-launch. After that, I offer affordable maintenance plans or per-change pricing — your choice.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Can you handle both design and development?
+          <span class="faq-chevron">+</span>
+        </button>
+        <div class="faq-a">Yes — I handle the entire project from design to development to launch. You don't need to hire a designer separately or manage multiple people.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          How do payments work?
+          <span class="faq-chevron">+</span>
+        </button>
+        <div class="faq-a">For one-time projects: 50% upfront, 50% on delivery. For retainers: monthly billing. I accept UPI, bank transfer, and international payments via Wise or PayPal.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-eyebrow">Contact</div>
+  <div class="contact-layout">
+    <div class="fade-up">
+      <h2 class="contact-h">Let's build something <span>great.</span></h2>
+      <p class="contact-sub">Tell me about your project — I'll get back to you within 24 hours. WhatsApp is the fastest way to reach me.</p>
+      <div class="contact-methods">
+        <a href="https://wa.me/918114405289" target="_blank" class="cmethod">
+          <div class="cmethod-icon cmethod-wa">💬</div>
+          <div>
+            <div class="cmethod-label">WhatsApp (Fastest Response)</div>
+            <div class="cmethod-val">+91 81144 05289</div>
+          </div>
+          <span style="color:var(--muted);margin-left:auto">→</span>
+        </a>
+        <a href="mailto:nuelevel007@gmail.com" class="cmethod">
+          <div class="cmethod-icon cmethod-em">✉️</div>
+          <div>
+            <div class="cmethod-label">Email</div>
+            <div class="cmethod-val">nuelevel007@gmail.com</div>
+          </div>
+          <span style="color:var(--muted);margin-left:auto">→</span>
+        </a>
+      </div>
+    </div>
+    <div class="fade-up delay-1">
+      <div class="form-grid">
+        <div class="form-row2">
+          <div class="fg"><label>Your Name</label><input type="text" placeholder="John Smith"></div>
+          <div class="fg"><label>Email</label><input type="email" placeholder="john@company.com"></div>
+        </div>
+        <div class="form-row2">
+          <div class="fg"><label>Budget Range</label>
+            <select>
+              <option>Under ₹15,000</option>
+              <option>₹15,000 – ₹35,000</option>
+              <option>₹35,000 – ₹1,00,000</option>
+              <option>₹1,00,000+</option>
+              <option>International / Discuss</option>
+            </select>
+          </div>
+          <div class="fg"><label>Service Needed</label>
+            <select>
+              <option>Web Development</option>
+              <option>AI Automation</option>
+              <option>Social Media Marketing</option>
+              <option>SEO Strategy</option>
+              <option>WhatsApp / Chatbot</option>
+              <option>Email Marketing</option>
+              <option>Full Package</option>
+            </select>
+          </div>
+        </div>
+        <div class="fg"><label>Tell me about your project</label>
+          <textarea placeholder="What do you need? What's your timeline? Any specific goals?"></textarea>
+        </div>
+        <button class="submit-btn" onclick="handleSubmit()">Send Message — I'll reply in 24hrs ✦</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="#" class="footer-logo">Nuel<span>vel</span></a>
+      <p>Full-stack digital partner for businesses in India and globally. Web development, AI automation, and performance marketing.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Services</h5>
+      <ul>
+        <li><a href="#services">Web Development</a></li>
+        <li><a href="#services">AI Automation</a></li>
+        <li><a href="#services">Social Media</a></li>
+        <li><a href="#services">SEO Strategy</a></li>
+        <li><a href="#services">WhatsApp Bot</a></li>
+        <li><a href="#services">Email Marketing</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Quick Links</h5>
+      <ul>
+        <li><a href="#work">Portfolio</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="mailto:nuelevel007@gmail.com">Email Me</a></li>
+        <li><a href="https://wa.me/918114405289" target="_blank">WhatsApp</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Nuelvel · Vipul Sharma · Ahmedabad, India 🇮🇳</p>
+    <div class="footer-socials">
+      <a href="https://wa.me/918114405289" target="_blank" class="social-link" title="WhatsApp">💬</a>
+      <a href="mailto:nuelevel007@gmail.com" class="social-link" title="Email">✉️</a>
+      <a href="#" class="social-link" title="LinkedIn">in</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Cursor
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+document.addEventListener('mousemove', e => {
+  cursor.style.left = e.clientX + 'px';
+  cursor.style.top = e.clientY + 'px';
+  setTimeout(() => { ring.style.left = e.clientX + 'px'; ring.style.top = e.clientY + 'px'; }, 70);
+});
+document.querySelectorAll('a,button').forEach(el => {
+  el.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
+  el.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
+});
+
+// Navbar
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
+  document.getElementById('stickyBar').classList.toggle('show', window.scrollY > 500);
+});
+
+// Fade up observer
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+setTimeout(() => document.querySelectorAll('.hero .fade-up').forEach((el,i) => {
+  setTimeout(() => el.classList.add('visible'), i * 160);
+}), 100);
+
+// FAQ
+function toggleFaq(btn) {
+  const item = btn.parentElement;
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+  if(!isOpen) item.classList.add('open');
+}
+
+// Portfolio filter
+function filterProjects(cat, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.pcard').forEach(card => {
+    const cats = card.dataset.cat || '';
+    card.style.display = (cat === 'all' || cats.includes(cat)) ? 'block' : 'none';
+  });
+}
+
+// Form submit
+function handleSubmit() {
+  const btn = document.querySelector('.submit-btn');
+  btn.textContent = '✓ Sent! I\'ll reply within 24 hours.';
+  btn.style.background = '#00E676';
+  setTimeout(() => {
+    btn.textContent = 'Send Message — I\'ll reply in 24hrs ✦';
+    btn.style.background = 'var(--accent)';
+  }, 4000);
+}
+</script>
+</body>
+</html>
